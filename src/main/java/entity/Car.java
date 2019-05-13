@@ -93,4 +93,18 @@ public class Car {
     public void setEngineType(String engineType) {
         this.engineType = engineType;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", carClass=" + carClass +
+                ", engineCapacity=" + engineCapacity +
+                ", enginePower=" + enginePower +
+                ", fuelUsageFrom=" + fuelUsageFrom +
+                ", fuelUsageTo=" + fuelUsageTo +
+                ", engineType='" + engineType + '\'' +
+                '}';
+    }
 }

@@ -38,7 +38,17 @@ public class MainController {
 
     @FXML
     void checkCar() {
+        Car searchCar = new Car();
+        searchCar.setCarClass(formCarClass.getSelectionModel().getSelectedItem());
+        searchCar.setEngineCapacity(formEngineCapacity.getSelectionModel().getSelectedItem());
+        searchCar.setEnginePower((int) formEnginePower.getValue());
+        searchCar.setFuelUsageTo(formFuelUsage.getValue());
+        searchCar.setEngineType(formEngineType.getText());
 
+        System.out.println(searchCar);
+
+        List<Car> carList = carDAO.search(searchCar);
+        result.setText(carList.get(0).getName());
     }
 
     @FXML
