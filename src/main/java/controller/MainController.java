@@ -3,16 +3,24 @@ package controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import db.dao.CarDAO;
+import entity.Car;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainController {
 
     @FXML
-    private JFXTextField formCarClass;
+    private JFXComboBox<Character> formCarClass;
 
     @FXML
-    private JFXComboBox<?> formEngineCapacity;
+    private JFXComboBox<Double> formEngineCapacity;
 
     @FXML
     private JFXSlider formEnginePower;
@@ -26,9 +34,36 @@ public class MainController {
     @FXML
     private Label result;
 
+    private CarDAO carDAO;
+
     @FXML
     void checkCar() {
 
+    }
+
+    @FXML
+    void chooseCarClass() {
+        fillEngineCapacityCombobox();
+    }
+
+    public void initialize() {
+        carDAO = new CarDAO();
+        fillCarClassCombobox();
+    }
+
+    private void fillCarClassCombobox() {
+        ObservableList<Character> carClassList = FXCollections.observableArrayList();
+        carClassList.addAll('A', 'B');
+        formCarClass.setItems(carClassList);
+    }
+
+
+    private void fillEngineCapacityCombobox() {
+        ObservableList<Double> engineCapacityList = FXCollections.observableArrayList();
+        List<Double> carList = carDAO.readAllByCarClass(formCarClass.getSelectionModel().getSelectedItem());
+
+        engineCapacityList.addAll(carList);
+        formEngineCapacity.setItems(engineCapacityList);
     }
 
 }
