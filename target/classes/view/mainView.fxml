@@ -12,7 +12,6 @@
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
       <HBox prefHeight="450.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -31,7 +30,7 @@
             </VBox>
             <VBox prefHeight="450.0" prefWidth="200.0" spacing="35.0">
                <children>
-                  <JFXTextField fx:id="formCarClass" />
+                  <JFXComboBox fx:id="formCarClass" onAction="#chooseCarClass" />
                   <JFXComboBox fx:id="formEngineCapacity" />
                   <JFXSlider fx:id="formEnginePower" max="115.0" min="35.0" showTickMarks="true" />
                   <JFXSlider fx:id="formFuelUsage" blockIncrement="0.0" majorTickUnit="4.0" max="8.0" min="4.0" showTickMarks="true" value="5.0" />
