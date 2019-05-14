@@ -41,7 +41,7 @@ public class MainController {
         Car searchCar = new Car();
         searchCar.setCarClass(formCarClass.getSelectionModel().getSelectedItem());
         searchCar.setEngineCapacity(formEngineCapacity.getSelectionModel().getSelectedItem());
-        searchCar.setEnginePower((int) Math.ceil(formEnginePower.getValue()));
+        searchCar.setEnginePower((int) formEnginePower.getValue());
         searchCar.setFuelUsageTo(formFuelUsage.getValue());
         searchCar.setEngineType(formEngineType.getSelectionModel().getSelectedItem());
 
