@@ -107,4 +107,13 @@ public class Car {
                 ", engineType='" + engineType + '\'' +
                 '}';
     }
+
+    public String showDescriptionCar() {
+        return  "Wybrałem dla ciebie: " + name + "\n" +
+                "Klasa samochodu: " + carClass + "\n" +
+                "Pojemność silnika: " + engineCapacity + "\n" +
+                "Moc silnika: " + enginePower + " KM\n" +
+                "Spalanie: " + fuelUsageFrom + " - " + fuelUsageTo + " l\n" +
+                "Typ silnika: " + engineType;
+    }
 }

@@ -48,7 +48,7 @@ public class MainController {
         System.out.println(searchCar);
 
         List<Car> carList = carDAO.search(searchCar);
-        result.setText(carList.get(0).getName());
+        result.setText(carList.get(0).showDescriptionCar());
     }
 
     @FXML
