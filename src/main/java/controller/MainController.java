@@ -29,7 +29,7 @@ public class MainController {
     private JFXSlider formFuelUsage;
 
     @FXML
-    private JFXTextField formEngineType;
+    private JFXComboBox<String> formEngineType;
 
     @FXML
     private Label result;
@@ -41,9 +41,9 @@ public class MainController {
         Car searchCar = new Car();
         searchCar.setCarClass(formCarClass.getSelectionModel().getSelectedItem());
         searchCar.setEngineCapacity(formEngineCapacity.getSelectionModel().getSelectedItem());
-        searchCar.setEnginePower((int) formEnginePower.getValue());
+        searchCar.setEnginePower((int) Math.ceil(formEnginePower.getValue()));
         searchCar.setFuelUsageTo(formFuelUsage.getValue());
-        searchCar.setEngineType(formEngineType.getText());
+        searchCar.setEngineType(formEngineType.getSelectionModel().getSelectedItem());
 
         System.out.println(searchCar);
 
@@ -59,6 +59,7 @@ public class MainController {
     public void initialize() {
         carDAO = new CarDAO();
         fillCarClassCombobox();
+        fillEngineTypeCombobox();
     }
 
     private void fillCarClassCombobox() {
@@ -76,4 +77,9 @@ public class MainController {
         formEngineCapacity.setItems(engineCapacityList);
     }
 
+    private void fillEngineTypeCombobox() {
+        ObservableList<String> engineTypeList = FXCollections.observableArrayList();
+        engineTypeList.addAll("Benzyna", "Diesel");
+        formEngineType.setItems(engineTypeList);
+    }
 }
