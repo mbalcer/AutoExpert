@@ -2,7 +2,6 @@ package controller;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXTextField;
 import db.dao.CarDAO;
 import entity.Car;
 import javafx.collections.FXCollections;
@@ -10,9 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MainController {
 
@@ -48,12 +45,21 @@ public class MainController {
         System.out.println(searchCar);
 
         List<Car> carList = carDAO.search(searchCar);
-        result.setText(carList.get(0).showDescriptionCar());
+        try {
+            result.setText(carList.get(0).showDescriptionCar());
+        } catch (IndexOutOfBoundsException e) {
+            result.setText("Nie mogłem znaleźć odpowiedniego samochodu dla ciebie. Zmień parametry i sprawdź jeszcze raz");
+        }
     }
 
     @FXML
     void chooseCarClass() {
         fillEngineCapacityCombobox();
+    }
+
+    @FXML
+    void chooseEngineCapacity() {
+        fillEngineTypeCombobox();
     }
 
     public void initialize() {
@@ -68,10 +74,9 @@ public class MainController {
         formCarClass.setItems(carClassList);
     }
 
-
     private void fillEngineCapacityCombobox() {
         ObservableList<Double> engineCapacityList = FXCollections.observableArrayList();
-        List<Double> carList = carDAO.readAllByCarClass(formCarClass.getSelectionModel().getSelectedItem());
+        List<Double> carList = carDAO.readEngineCapacityByCarClass(formCarClass.getSelectionModel().getSelectedItem());
 
         engineCapacityList.addAll(carList);
         formEngineCapacity.setItems(engineCapacityList);
@@ -79,7 +84,11 @@ public class MainController {
 
     private void fillEngineTypeCombobox() {
         ObservableList<String> engineTypeList = FXCollections.observableArrayList();
-        engineTypeList.addAll("Benzyna", "Diesel");
+        List<String> carList = carDAO.readEngineTypeByEngineCapacityAndCarClass(
+                formEngineCapacity.getSelectionModel().getSelectedItem(),
+                formCarClass.getSelectionModel().getSelectedItem());
+
+        engineTypeList.addAll(carList);
         formEngineType.setItems(engineTypeList);
     }
 }

@@ -25,7 +25,7 @@ public class CarDAO {
         return carList;
     }
 
-    public List<Double> readAllByCarClass(Character carClass) {
+    public List<Double> readEngineCapacityByCarClass(Character carClass) {
         Session session = new HibernateFactory().getSessionFactory().openSession();
         List<Double> carList = session.createQuery("SELECT DISTINCT engineCapacity FROM Car WHERE carClass=:carClass ORDER BY engineCapacity")
                 .setParameter("carClass", carClass)
@@ -34,5 +34,16 @@ public class CarDAO {
         session.close();
 
         return carList;
+    }
+
+    public List<String> readEngineTypeByEngineCapacityAndCarClass(Double engineCapacity, Character carClass) {
+        Session session = new HibernateFactory().getSessionFactory().openSession();
+        List<String> engineTypeList = session.createQuery("SELECT DISTINCT engineType FROM Car WHERE carClass=:carClass AND engineCapacity=:engineCapacity ORDER BY engineType")
+                .setParameter("carClass", carClass)
+                .setParameter("engineCapacity", engineCapacity)
+                .list();
+        session.close();
+
+        return engineTypeList;
     }
 }
