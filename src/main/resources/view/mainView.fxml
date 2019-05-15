@@ -30,7 +30,7 @@
             <VBox prefHeight="450.0" prefWidth="200.0" spacing="35.0">
                <children>
                   <JFXComboBox fx:id="formCarClass" onAction="#chooseCarClass" />
-                  <JFXComboBox fx:id="formEngineCapacity" />
+                  <JFXComboBox fx:id="formEngineCapacity" onAction="#chooseEngineCapacity" />
                   <JFXSlider fx:id="formEnginePower" max="115.0" min="35.0" showTickMarks="true" />
                   <JFXSlider fx:id="formFuelUsage" blockIncrement="0.0" majorTickUnit="4.0" max="8.0" min="4.0" showTickMarks="true" value="5.0" />
                   <JFXComboBox fx:id="formEngineType" />
@@ -52,6 +52,6 @@
             </VBox>
          </children>
       </HBox>
-      <Label fx:id="result" layoutX="10.0" layoutY="384.0" prefHeight="150.0" prefWidth="380.0" wrapText="true" />
+      <Label fx:id="result" layoutX="50.0" layoutY="394.0" prefHeight="150.0" prefWidth="300.0" wrapText="true" />
    </children>
 </AnchorPane>
