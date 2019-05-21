@@ -11,11 +11,12 @@ import java.util.List;
 
 public class CarDAO {
 
-    public List<Car> search(Car searchedCar) {
+    public List<Car> search(Car searchedCar, int subtrahend) {
         Session session = new HibernateFactory().getSessionFactory().openSession();
-        List<Car> carList = session.createQuery("FROM Car WHERE carClass=:carClass AND engineCapacity=:eCapacity AND engineType=:eType AND enginePower>=:ePower-1 AND enginePower<=:ePower+1 AND fuelUsageTo<=:fuelUsage")
+        List<Car> carList = session.createQuery("FROM Car WHERE carClass=:carClass AND engineCapacity=:eCapacity AND engineType=:eType AND enginePower>=:ePower-:subtrahend AND enginePower<=:ePower+:subtrahend AND fuelUsageTo<=:fuelUsage")
                 .setParameter("carClass", searchedCar.getCarClass())
                 .setParameter("eCapacity", searchedCar.getEngineCapacity())
+                .setParameter("subtrahend", subtrahend)
                 .setParameter("eType", searchedCar.getEngineType())
                 .setParameter("ePower", searchedCar.getEnginePower())
                 .setParameter("fuelUsage", searchedCar.getFuelUsageTo())

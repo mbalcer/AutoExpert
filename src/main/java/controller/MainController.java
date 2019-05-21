@@ -42,13 +42,20 @@ public class MainController {
         searchCar.setFuelUsageTo(formFuelUsage.getValue());
         searchCar.setEngineType(formEngineType.getSelectionModel().getSelectedItem());
 
-        System.out.println(searchCar);
+        Car foundCar = null;
+        int index = 1;
+        while (foundCar==null) {
+            try {
+                foundCar = carDAO.search(searchCar, index).get(0);
+                result.setText(foundCar.showDescriptionCar());
+            } catch (IndexOutOfBoundsException e) {
+                index+=2;
+            }
 
-        List<Car> carList = carDAO.search(searchCar);
-        try {
-            result.setText(carList.get(0).showDescriptionCar());
-        } catch (IndexOutOfBoundsException e) {
-            result.setText("Nie mogłem znaleźć odpowiedniego samochodu dla ciebie. Zmień parametry i sprawdź jeszcze raz");
+            if (index>30) {
+                result.setText("Nie mogłem znaleźć odpowiedniego samochodu dla ciebie. Zmień parametry i sprawdź jeszcze raz");
+                break;
+            }
         }
     }
 
