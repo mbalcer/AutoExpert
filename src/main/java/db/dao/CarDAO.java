@@ -6,10 +6,26 @@ import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarDAO {
+
+    public List<Car> findAll() {
+        Session session = new HibernateFactory().getSessionFactory().openSession();
+        List<Car> carList = new ArrayList<>();
+        try {
+            Query query = session.createQuery("FROM "+Car.class.getName());
+            carList = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return carList;
+    }
 
     public List<Car> search(Car searchedCar, int subtrahend) {
         Session session = new HibernateFactory().getSessionFactory().openSession();
