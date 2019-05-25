@@ -1,101 +1,11 @@
 package controller;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXSlider;
-import db.dao.CarDAO;
-import entity.Car;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-
-import java.util.List;
+import javafx.scene.layout.BorderPane;
 
 public class MainController {
 
     @FXML
-    private JFXComboBox<Character> formCarClass;
+    private BorderPane mainBorderPane;
 
-    @FXML
-    private JFXComboBox<Double> formEngineCapacity;
-
-    @FXML
-    private JFXSlider formEnginePower;
-
-    @FXML
-    private JFXSlider formFuelUsage;
-
-    @FXML
-    private JFXComboBox<String> formEngineType;
-
-    @FXML
-    private Label result;
-
-    private CarDAO carDAO;
-
-    @FXML
-    void checkCar() {
-        Car searchCar = new Car();
-        searchCar.setCarClass(formCarClass.getSelectionModel().getSelectedItem());
-        searchCar.setEngineCapacity(formEngineCapacity.getSelectionModel().getSelectedItem());
-        searchCar.setEnginePower((int) formEnginePower.getValue());
-        searchCar.setFuelUsageTo(formFuelUsage.getValue());
-        searchCar.setEngineType(formEngineType.getSelectionModel().getSelectedItem());
-
-        Car foundCar = null;
-        int index = 1;
-        while (foundCar==null) {
-            try {
-                foundCar = carDAO.search(searchCar, index).get(0);
-                result.setText(foundCar.showDescriptionCar());
-            } catch (IndexOutOfBoundsException e) {
-                index+=2;
-            }
-
-            if (index>30) {
-                result.setText("Nie mogłem znaleźć odpowiedniego samochodu dla ciebie. Zmień parametry i sprawdź jeszcze raz");
-                break;
-            }
-        }
-    }
-
-    @FXML
-    void chooseCarClass() {
-        fillEngineCapacityCombobox();
-    }
-
-    @FXML
-    void chooseEngineCapacity() {
-        fillEngineTypeCombobox();
-    }
-
-    public void initialize() {
-        carDAO = new CarDAO();
-        fillCarClassCombobox();
-        fillEngineTypeCombobox();
-    }
-
-    private void fillCarClassCombobox() {
-        ObservableList<Character> carClassList = FXCollections.observableArrayList();
-        carClassList.addAll('A', 'B');
-        formCarClass.setItems(carClassList);
-    }
-
-    private void fillEngineCapacityCombobox() {
-        ObservableList<Double> engineCapacityList = FXCollections.observableArrayList();
-        List<Double> carList = carDAO.readEngineCapacityByCarClass(formCarClass.getSelectionModel().getSelectedItem());
-
-        engineCapacityList.addAll(carList);
-        formEngineCapacity.setItems(engineCapacityList);
-    }
-
-    private void fillEngineTypeCombobox() {
-        ObservableList<String> engineTypeList = FXCollections.observableArrayList();
-        List<String> carList = carDAO.readEngineTypeByEngineCapacityAndCarClass(
-                formEngineCapacity.getSelectionModel().getSelectedItem(),
-                formCarClass.getSelectionModel().getSelectedItem());
-
-        engineTypeList.addAll(carList);
-        formEngineType.setItems(engineTypeList);
-    }
 }
