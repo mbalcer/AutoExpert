@@ -29,7 +29,7 @@ public class MainController {
             e.printStackTrace();
         }
 
-        WelcomeController welcomeController = new WelcomeController();
+        WelcomeController welcomeController = loader.getController();
         welcomeController.setMainController(this);
         setMainBorderPane(parent);
     }
