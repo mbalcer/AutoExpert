@@ -3,8 +3,10 @@ package utility;
 import db.dao.CarDAO;
 import entity.Car;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class AutoExpert {
     private List<Car> carList;
@@ -51,5 +53,24 @@ public class AutoExpert {
         }
 
         return range;
+    }
+
+    public Integer[] setRangeEnginePower(String enginePower) {
+        Integer[] range = new Integer[2];
+        String[] rangeString = enginePower.split("-");
+        IntStream.range(0,2)
+                .forEach(i -> {
+                    range[i] = Integer.parseInt(rangeString[i].trim());
+                    System.out.println(range[i]);
+                });
+
+        return range;
+    }
+
+    public void reduceListByEnginePower(Integer rangeFrom, Integer rangeTo) {
+        carList = carList.stream()
+                .filter(car -> car.getEnginePower()>=rangeFrom)
+                .filter(car -> car.getEnginePower()<=rangeTo)
+                .collect(Collectors.toList());
     }
 }
