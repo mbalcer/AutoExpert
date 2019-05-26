@@ -89,6 +89,7 @@ public class QuestionController {
             loadResultView();
         else {
             numberQuestion++;
+            clearAnswerField();
             loadQuestionFromDatabase();
         }
     }
@@ -107,6 +108,10 @@ public class QuestionController {
         resultController.setAutoExpert(autoExpert);
         resultController.showResult();
         mainController.setMainBorderPane(parent);
+    }
+
+    private void clearAnswerField() {
+        answerField.clear();
     }
 
 
