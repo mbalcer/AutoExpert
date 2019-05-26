@@ -105,6 +105,7 @@ public class QuestionController {
         ResultController resultController = loader.getController();
         resultController.setMainController(mainController);
         resultController.setAutoExpert(autoExpert);
+        resultController.showResult();
         mainController.setMainBorderPane(parent);
     }
 
