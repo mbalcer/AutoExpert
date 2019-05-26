@@ -3,10 +3,14 @@ package controller;
 import db.dao.QuestionDAO;
 import entity.Question;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import utility.AutoExpert;
-import utility.InfoDialog;
+import utility.CheckData;
+
+import java.io.IOException;
 
 public class QuestionController {
 
@@ -23,6 +27,7 @@ public class QuestionController {
     private AutoExpert autoExpert;
     private Long numberQuestion;
     private QuestionDAO questionDAO;
+    private CheckData checkData;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -35,6 +40,7 @@ public class QuestionController {
     public void initialize() {
         numberQuestion = 1l;
         questionDAO = new QuestionDAO();
+        checkData = new CheckData();
         loadQuestionFromDatabase();
     }
 
@@ -47,27 +53,49 @@ public class QuestionController {
     @FXML
     void nextQuestion() {
         String answer = answerField.getText().toUpperCase();
-        if (checkCarClass(answer)) {
-            autoExpert.reduceListByCarClass(answer.charAt(0));
+        switch (numberQuestion.intValue()) {
+            case 1: {
+                if (checkData.checkCarClass(answer))
+                    autoExpert.reduceListByCarClass(answer.charAt(0));
+                else
+                    return;
+            } break;
+            case 2: {
+                if (checkData.checkEngineType(answer))
+                    autoExpert.reduceListByEngineType(answer);
+                else
+                    return;
+            } break;
+            case 3: {
+                if (checkData.checkEngineCapacity(answer)){
+                    Double[] range = autoExpert.setRangeEngineCapacity(answer);
+                    autoExpert.reduceListByEngineCapacity(range[0], range[1]);
+                } else
+                    return;
+            } break;
+            case 4: {
+                if (checkData.checkEnginePower(answer)) {
+                    Integer[] range = autoExpert.setRangeEnginePower(answer);
+                    if (checkData.checkEnginePowerRange(range[0], range[1])) {
+                        autoExpert.reduceListByEnginePower(range[0], range[1]);
+                    } else
+                        return;
+                } else
+                    return;
+            }
+        }
+        System.out.println(autoExpert.getCarList());
+        if (numberQuestion == 4)
+            loadResultView();
+        else {
             numberQuestion++;
-            System.out.println(autoExpert.getCarList());
             loadQuestionFromDatabase();
         }
     }
 
-    private boolean checkCarClass(String answer) {
-        if (answer.length() > 1) {
-            InfoDialog.showAlert("Błąd", "Wprowadź jedną literę oznaczającą klasę samochodu");
-            return false;
-        }
-
-        Character answerChar = answer.charAt(0);
-        if(answerChar != 'A' && answerChar!='B' && answerChar!='C' && answerChar!='D' && answerChar!='E') {
-            InfoDialog.showAlert("Błąd", "Wprowadzona litera nie oznacza klasy samochodu. Wprowadź jedną z 5 liter(A,B,C,D,E)");
-            return false;
-        }
-
-        return true;
+    private void loadResultView() {
+        
     }
+
 
 }
