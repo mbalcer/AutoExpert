@@ -59,10 +59,7 @@ public class AutoExpert {
         Integer[] range = new Integer[2];
         String[] rangeString = enginePower.split("-");
         IntStream.range(0,2)
-                .forEach(i -> {
-                    range[i] = Integer.parseInt(rangeString[i].trim());
-                    System.out.println(range[i]);
-                });
+                .forEach(i -> range[i] = Integer.parseInt(rangeString[i].trim()));
 
         return range;
     }
