@@ -94,7 +94,18 @@ public class QuestionController {
     }
 
     private void loadResultView() {
-        
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/resultView.fxml"));
+        Parent parent = null;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ResultController resultController = loader.getController();
+        resultController.setMainController(mainController);
+        resultController.setAutoExpert(autoExpert);
+        mainController.setMainBorderPane(parent);
     }
 
 
