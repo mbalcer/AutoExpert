@@ -3,6 +3,7 @@ package controller;
 import entity.Car;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utility.AutoExpert;
 
@@ -39,6 +40,7 @@ public class ResultController {
             Random rand = new Random();
             int randNumber = rand.nextInt(carList.size());
             resultCar.setText(carList.get(randNumber).showDescriptionCar());
+            imageCar.setImage(new Image("/img/"+carList.get(randNumber).getImage()));
         }
     }
 

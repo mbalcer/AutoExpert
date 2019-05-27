@@ -16,11 +16,12 @@ public class Car {
     private Double fuelUsageFrom;
     private Double fuelUsageTo;
     private String engineType;
+    private String image;
 
     public Car() {
     }
 
-    public Car(String name, Character carClass, Double engineCapacity, Integer enginePower, Double fuelUsageFrom, Double fuelUsageTo, String engineType) {
+    public Car(String name, Character carClass, Double engineCapacity, Integer enginePower, Double fuelUsageFrom, Double fuelUsageTo, String engineType, String image) {
         this.name = name;
         this.carClass = carClass;
         this.engineCapacity = engineCapacity;
@@ -28,6 +29,7 @@ public class Car {
         this.fuelUsageFrom = fuelUsageFrom;
         this.fuelUsageTo = fuelUsageTo;
         this.engineType = engineType;
+        this.image = image;
     }
 
     public Long getId() {
@@ -94,6 +96,14 @@ public class Car {
         this.engineType = engineType;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -109,7 +119,7 @@ public class Car {
     }
 
     public String showDescriptionCar() {
-        return  "Wybrałem dla ciebie: " + name + "\n" +
+        return  name + "\n" +
                 "Klasa samochodu: " + carClass + "\n" +
                 "Pojemność silnika: " + engineCapacity + "\n" +
                 "Moc silnika: " + enginePower + " KM\n" +
