@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ResultController">
    <children>
       <Label layoutX="210.0" layoutY="31.0" text="AutoExpert">
@@ -14,11 +13,10 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <ImageView fx:id="imageCar" fitHeight="180.0" fitWidth="239.0" layoutX="250.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="29.0" layoutY="65.0" prefHeight="48.0" prefWidth="203.0" text="Prawdopodobnie samochód którego szukasz to: " wrapText="true" />
-      <Label fx:id="resultCar" alignment="TOP_LEFT" layoutX="29.0" layoutY="119.0" prefHeight="126.0" prefWidth="203.0" />
-      <Label layoutX="29.0" layoutY="264.0" text="Pojazd został wybrany na podstawie danych które podałeś:" />
-      <Label fx:id="userAnswer" alignment="TOP_LEFT" layoutX="29.0" layoutY="282.0" prefHeight="97.0" prefWidth="311.0" />
-      <Button layoutX="408.0" layoutY="331.0" mnemonicParsing="false" onAction="#exitApplication" text="Koniec" />
+      <ImageView fx:id="imageCar" fitHeight="215.0" fitWidth="280.0" layoutX="210.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="14.0" layoutY="65.0" prefHeight="48.0" prefWidth="203.0" text="Prawdopodobnie pojazd którego szukasz to: " wrapText="true" />
+      <Label fx:id="resultCar" alignment="TOP_LEFT" layoutX="14.0" layoutY="131.0" prefHeight="200.0" prefWidth="203.0" wrapText="true" />
+      <Button layoutX="376.0" layoutY="305.0" mnemonicParsing="false" onAction="#exitApplication" text="Koniec" />
+      <Button layoutX="278.0" layoutY="305.0" mnemonicParsing="false" onAction="#loadStartView" text="Jeszcze raz" />
    </children>
 </AnchorPane>
