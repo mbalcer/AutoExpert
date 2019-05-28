@@ -1,6 +1,7 @@
 package controller;
 
 import db.dao.QuestionDAO;
+import entity.Car;
 import entity.Question;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import utility.AutoExpert;
 import utility.CheckData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionController {
 
@@ -77,7 +80,15 @@ public class QuestionController {
                 if (checkData.checkEnginePower(answer)) {
                     Integer[] range = autoExpert.setRangeEnginePower(answer);
                     if (checkData.checkEnginePowerRange(range[0], range[1])) {
+                        List<Car> copyList = autoExpert.getCarList();
                         autoExpert.reduceListByEnginePower(range[0], range[1]);
+                        if (!(autoExpert.checkSizeList())) {
+                            autoExpert.setCarList(copyList);
+                            Car car = autoExpert.searchCar((range[0]+range[1])/2);
+                            List<Car> oneCarList = new ArrayList<>();
+                            oneCarList.add(car);
+                            autoExpert.setCarList(oneCarList);
+                        }
                     } else
                         return;
                 } else
@@ -85,13 +96,15 @@ public class QuestionController {
             }
         }
         System.out.println(autoExpert.getCarList());
-        if (numberQuestion == 4)
+        if (numberQuestion == 4 || !(autoExpert.checkSizeList()))
             loadResultView();
         else {
             numberQuestion++;
             clearAnswerField();
             loadQuestionFromDatabase();
         }
+
+        autoExpert.searchCar(50);
     }
 
     private void loadResultView() {

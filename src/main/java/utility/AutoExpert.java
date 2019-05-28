@@ -3,8 +3,7 @@ package utility;
 import db.dao.CarDAO;
 import entity.Car;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,6 +17,10 @@ public class AutoExpert {
 
     public List<Car> getCarList() {
         return carList;
+    }
+
+    public void setCarList(List<Car> carList) {
+        this.carList = carList;
     }
 
     public void reduceListByCarClass(Character condition) {
@@ -69,5 +72,30 @@ public class AutoExpert {
                 .filter(car -> car.getEnginePower()>=rangeFrom)
                 .filter(car -> car.getEnginePower()<=rangeTo)
                 .collect(Collectors.toList());
+    }
+
+    public boolean checkSizeList() {
+        if (carList.size()<=1)
+            return false;
+        else
+            return true;
+    }
+
+    public Car searchCar(Integer avgEnginePower) {
+        Car searchedCar = null;
+        Integer range = 1;
+        while (searchedCar == null) {
+            List<Car> tempList = carList;
+            Integer finalRange = range;
+            searchedCar = tempList.stream()
+                    .filter(car -> car.getEnginePower()>=avgEnginePower - finalRange)
+                    .filter(car -> car.getEnginePower()<=avgEnginePower + finalRange)
+                    .findFirst()
+                    .orElse(null);
+
+            range += 2;
+        }
+
+        return searchedCar;
     }
 }
