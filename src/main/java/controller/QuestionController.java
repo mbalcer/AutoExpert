@@ -103,8 +103,6 @@ public class QuestionController {
             clearAnswerField();
             loadQuestionFromDatabase();
         }
-
-        autoExpert.searchCar(50);
     }
 
     private void loadResultView() {

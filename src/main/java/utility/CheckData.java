@@ -11,7 +11,7 @@ public class CheckData {
         }
 
         Character answerChar = answer.charAt(0);
-        if(answerChar != 'A' && answerChar!='B' && answerChar!='C' && answerChar!='D' && answerChar!='E') {
+        if(answerChar != 'A' && answerChar!='B' && answerChar!='C' && answerChar!='D') {
             InfoDialog.showAlert("Błąd", "Wprowadzona litera nie oznacza klasy samochodu. Wprowadź jedną z 5 liter(A,B,C,D,E)");
             return false;
         }
